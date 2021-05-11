@@ -11,10 +11,17 @@ services:
                         - HOST=db
                         - USER=odoo
                         - PASSWORD=odoo
+                command: odoo -i sale_management -d odoo_14_tests_db_1
         
         db:
                 image: postgres:10
                 environment:
-                        POSTGRES_USER: odoo
-                        POSTGRES_PASSWORD: odoo
-                        POSTGRES_DB: postgres
+                        - POSTGRES_USER=odoo
+                        - POSTGRES_PASSWORD=odoo
+                        - POSTGRES_DB=postgres
+                        - PGDATA=/var/lib/postgresql/data/pgdata
+                volumes:
+                        - ./db:/var/lib/postgresql/data/pgdata
+
+volumes:
+        db:
